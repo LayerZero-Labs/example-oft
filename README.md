@@ -6,7 +6,7 @@
   <h1>LayerZero OFT</h1>
 
   <p>
-    <strong>Omnichain Fungible Token</strong>
+    <strong>Omnichain Fungible Token(Beta)</strong>
   </p>
 
   <p>
