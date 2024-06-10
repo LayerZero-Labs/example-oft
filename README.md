@@ -28,13 +28,24 @@ This standard works by burning tokens on the source chain whenever an omnichain 
 yarn && yarn build && yarn test
 ```
 
+
 ## Deploy
 
-```bash
-cd packages/solana/contracts && solana program deploy target/deploy/oft.so
+```
+cd packages/solana/contracts
 ```
 
-please visi https://docs.solanalabs.com/cli/examples/deploy-a-program for more detail.   
+1. build deployable program
+```
+solana-verify build
+```
+2. deploy 
+
+```bash
+solana program deploy target/deploy/oft.so
+```
+
+please visi [Solana Verify CLI](https://github.com/Ellipsis-Labs/solana-verifiable-build) and [Deploy a Solana Program with the CLI](https://docs.solanalabs.com/cli/examples/deploy-a-program) for more detail.   
 
 
 #### Notice
