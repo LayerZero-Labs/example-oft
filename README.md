@@ -35,7 +35,7 @@ yarn && yarn build && yarn test
 cd packages/solana/contracts
 ```
 
-1. build deployable program
+1. build verifiable program(optional)
 ```
 solana-verify build
 ```
