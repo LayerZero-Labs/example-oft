@@ -27,3 +27,15 @@ This standard works by burning tokens on the source chain whenever an omnichain 
 ```bash
 yarn && yarn build && yarn test
 ```
+
+## Deploy
+
+```bash
+cd packages/solana/contracts && solana program deploy target/deploy/oft.so
+```
+
+please visi https://docs.solanalabs.com/cli/examples/deploy-a-program for more detail.   
+
+
+#### Notice
+If you encounter issues during compilation and testing, it might be due to the versions of Solana and Anchor. You can switch to Solana version `1.17.31` and Anchor version `0.29.0`, as these are the versions we have tested and verified to be working.
