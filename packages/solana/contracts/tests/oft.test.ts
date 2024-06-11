@@ -5,7 +5,8 @@ import { assert } from 'chai'
 
 import { OftTools } from '@layerzerolabs/lz-solana-sdk-v2'
 
-import idl from '../target/idl/oft.json'
+import oftIdl from '../target/idl/oft.json'
+import endpointIdl from '../target/idl/endpoint.json'
 
 const OFT_SEED = 'Oft'
 const SOLANA_OFT_TOKEN_DECIMALS = 8
@@ -18,12 +19,14 @@ describe('oft', () => {
         preflightCommitment: 'confirmed',
     })
     const wallet = provider.wallet as anchor.Wallet
+    const OFT_PROGRAM_ID = new PublicKey(oftIdl.metadata.address)
+    const ENDPOINT_PROGRAM_ID = new PublicKey(endpointIdl.metadata.address)
 
     it('Initialize OFT', async () => {
         const mintKp = Keypair.generate()
         const [oftConfigPda] = PublicKey.findProgramAddressSync(
             [Buffer.from(OFT_SEED, 'utf8'), mintKp.publicKey.toBuffer()],
-            new anchor.web3.PublicKey(idl.metadata.address)
+            new anchor.web3.PublicKey(oftIdl.metadata.address)
         )
 
         // step 1, create the mint token
@@ -45,15 +48,16 @@ describe('oft', () => {
             wallet.publicKey,
             mintKp.publicKey,
             wallet.publicKey,
-            wallet.publicKey,
             OFT_SHARE_DECIMALS,
-            TOKEN_PROGRAM_ID
+            TOKEN_PROGRAM_ID,
+            OFT_PROGRAM_ID,
+            ENDPOINT_PROGRAM_ID
         )
 
         await provider.sendAndConfirm(new anchor.web3.Transaction().add(initOftIx), [wallet.payer])
 
         // check status
-        const delegate = await OftTools.getDelegate(provider.connection, oftConfigPda)
+        const delegate = await OftTools.getDelegate(provider.connection, oftConfigPda, ENDPOINT_PROGRAM_ID)
         assert.equal(delegate.toBase58(), wallet.publicKey.toBase58())
     })
 })
