@@ -3,10 +3,12 @@
   "version": "0.0.1",
   "private": true,
   "workspaces": [
-    "packages/**"
+    "packages/**",
+    "config/"
   ],
   "scripts": {
-    "build": "$npm_execpath workspaces foreach --all run build",
+    "build-prerequisite": "cd config; ([ -f keys.json ] || cp keys.json.example keys.json); ([ -f rpc.json ] || cp rpc.json.example rpc.json); ",
+    "build": "$npm_execpath build-prerequisite; $npm_execpath workspaces foreach --all run build",
     "clean": "$npm_execpath workspaces foreach --all run clean",
     "test": "$npm_execpath workspaces foreach --all run test"
   },

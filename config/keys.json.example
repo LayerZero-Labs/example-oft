@@ -1,0 +1,50 @@
+{
+  "mainnet": {
+    "evm": {
+      "deployer": {
+        "mnemonic": "test test test test test test test test test test test junk",
+        "path": "m/44'/60'/0'/0/7",
+        "address": "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955"
+      }
+    },
+    "solana": {
+      "deployer": {
+        "mnemonic": "test test test test test test test test test test test junk",
+        "path": "m/44'/501'/0'/3'",
+        "address": "2dh2G3zSEjQ14suomJvmrxV3QCoqcD6xzNjzbPuidxWf"
+      }
+    }
+  },
+  "testnet": {
+    "evm": {
+      "deployer": {
+        "mnemonic": "test test test test test test test test test test test junk",
+        "path": "m/44'/60'/0'/0/7",
+        "address": "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955"
+      }
+    },
+    "solana": {
+       "deployer": {
+        "mnemonic": "test test test test test test test test test test test junk",
+        "path": "m/44'/501'/0'/3'",
+        "address": "2dh2G3zSEjQ14suomJvmrxV3QCoqcD6xzNjzbPuidxWf"
+       }
+    }
+  },
+  "sandbox": {
+    "evm": {
+      "deployer": {
+        "mnemonic": "test test test test test test test test test test test junk",
+        "path": "m/44'/60'/0'/0/7",
+        "address": "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955"
+      }
+    },
+    "solana": {
+       "deployer": {
+         "mnemonic": "test test test test test test test test test test test junk",
+         "path": "m/44'/501'/0'/3'",
+         "address": "2dh2G3zSEjQ14suomJvmrxV3QCoqcD6xzNjzbPuidxWf"
+       }
+    }
+  }
+}

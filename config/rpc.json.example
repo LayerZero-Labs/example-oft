@@ -1,0 +1,12 @@
+{
+  "local": {
+    "ethereum": "http://127.0.0.1:8501",
+    "bsc": "http://127.0.0.1:8502",
+    "avalanche": "http://127.0.0.1:8506",
+    "polygon": "http://127.0.0.1:8509",
+    "solana": "http://127.0.0.1:8899"
+  },
+  "devnet": {},
+  "testnet": {},
+  "mainnet": {}
+}

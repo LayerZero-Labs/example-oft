@@ -1,0 +1,7 @@
+{
+  "extends": "@layerzerolabs/typescript-config/node16.json",
+  "exclude": ["dist", "build", "node_modules"],
+  "compilerOptions": {
+    "outDir": "dist"
+  }
+}
