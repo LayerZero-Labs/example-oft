@@ -159,6 +159,8 @@ coverage-html
 !.yarn/sdks
 !.yarn/versions
 
+!yarn.lock
+
 .snapshot/
 .docker-compose/
 
