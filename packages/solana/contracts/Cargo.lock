@@ -897,7 +897,7 @@ dependencies = [
  "anchor-lang",
  "cpi-helper",
  "messagelib-interface",
- "solana-helper",
+ "solana-helper 0.1.0 (git+https://github.com/LayerZero-Labs/LayerZero-v2.git?branch=main)",
  "solana-program",
  "utils",
 ]
@@ -1371,6 +1371,7 @@ dependencies = [
  "anchor-lang",
  "anchor-spl",
  "oapp",
+ "solana-helper 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-program",
  "utils",
 ]
@@ -1862,6 +1863,18 @@ dependencies = [
  "quote",
  "rustc_version",
  "syn 2.0.66",
+]
+
+[[package]]
+name = "solana-helper"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "09c6deff8c48efb84b5828db064ad9873ef3445f129f888b4b6a664bd5220e35"
+dependencies = [
+ "bs58 0.5.1",
+ "proc-macro2",
+ "quote",
+ "syn 1.0.109",
 ]
 
 [[package]]
