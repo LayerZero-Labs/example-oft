@@ -1,0 +1,9 @@
+{
+  "extends": "@layerzerolabs/typescript-config-next/base.json",
+  "exclude": ["dist", "build", "node_modules"],
+  "compilerOptions": {
+    "outDir": "./dist/ops",
+    "strict": true
+  },
+  "include": ["src/**/*"]
+}

@@ -1,0 +1,42 @@
+{
+  "name": "@layerzerolabs/oft-solana-ops",
+  "private": true,
+  "license": "BUSL-1.1",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "$npm_execpath clean-prebuild && $npm_execpath tsc",
+    "clean": "$npm_execpath clean-prebuild && rimraf .turbo cache",
+    "clean-prebuild": "rimraf dist"
+  },
+  "dependencies": {
+    "@layerzerolabs/lz-corekit-solana": "^2.3.21",
+    "bn.js": "^5.2.1",
+    "glob": "^10.3.10",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@layerzerolabs/anchor-cli-wrapper": "^2.3.21",
+    "@layerzerolabs/lz-core": "^2.3.23",
+    "@layerzerolabs/lz-definitions": "^2.3.21",
+    "@layerzerolabs/lz-solana-sdk-v2": "^2.3.21",
+    "@layerzerolabs/lz-utilities": "^2.3.21",
+    "@layerzerolabs/lz-v2-utilities": "^2.3.21",
+    "@layerzerolabs/oft-runtime-config": "workspace:^",
+    "@layerzerolabs/oft-solana-contracts": "workspace:^",
+    "@layerzerolabs/oft-solana-sdk": "workspace:^",
+    "@layerzerolabs/ops-core": "^2.3.21",
+    "@layerzerolabs/ops-plugin-core": "^2.3.21",
+    "@layerzerolabs/ops-utilities": "^2.3.21",
+    "@layerzerolabs/tsup-config-next": "^2.3.21",
+    "@layerzerolabs/typescript-config-next": "^2.3.21",
+    "@solana/spl-token": "^0.3.9",
+    "@solana/web3.js": "^1.92.1",
+    "@types/bn.js": "^5.1.5",
+    "@types/lodash": "^4.14.202",
+    "@types/node": "^20.10.5",
+    "ethereumjs-util": "^7.1.5",
+    "rimraf": "^5.0.5",
+    "ts-node": "^10.9.1",
+    "typescript": "~5.2.2"
+  }
+}

@@ -18,6 +18,6 @@
     "@layerzerolabs/ops-utilities": "^2.3.21",
     "@layerzerolabs/typescript-config": "^0.0.3",
     "rimraf": "^5.0.5",
-    "typescript": "^4.3.5"
+    "typescript": "~5.2.2"
   }
 }
