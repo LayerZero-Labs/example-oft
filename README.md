@@ -38,15 +38,14 @@ cd packages/solana/contracts
 1. with anchor
     ```bash
     anchor build -v
-
-    solana program deploy target/verifiable/oft.so
+    solana program deploy --program-id target/deploy/oft-keypair.json target/verifiable/oft.so -u mainnet-beta
     ```
 
     or
 2. with solana-verify
     ```bash
     solana-verify build
-    solana program deploy target/deploy/oft.so
+    solana program deploy --program-id target/deploy/oft-keypair.json target/deploy/oft.so -u mainnet-beta
     ```
 
 please visit [Solana Verify CLI](https://github.com/Ellipsis-Labs/solana-verifiable-build) and [Deploy a Solana Program with the CLI](https://docs.solanalabs.com/cli/examples/deploy-a-program) for more detail.   
