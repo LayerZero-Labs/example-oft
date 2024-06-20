@@ -1,15 +1,27 @@
 import {mnemonicToSeedSync} from "bip39";
 import {derivePath} from "ed25519-hd-key";
-import {Chain, Stage} from "@layerzerolabs/lz-definitions";
+import {Chain, Network, Stage} from "@layerzerolabs/lz-definitions";
 import {Keypair, PublicKey} from "@solana/web3.js";
 import {readAccountsConfig} from "@layerzerolabs/ops-utilities";
 import {AppConfig, OFT_TYPE, TokenInfo} from "@layerzerolabs/oft-runtime-config";
 import {sha256} from "ethereumjs-util";
 import {OftPDADeriver} from "@layerzerolabs/lz-solana-sdk-v2";
 import {SolanaProvider as CoreSolanaProvider} from "@layerzerolabs/lz-corekit-solana";
+import {Deployment} from "@layerzerolabs/ops-core";
 
 const signersConfig = readAccountsConfig(require.resolve('@layerzerolabs/oft-runtime-config/keys.json'))
 
+export function findProgram(
+    name: 'endpoint' | 'uln' | 'executor',
+    deployments: Deployment[],
+    network: Network
+): PublicKey {
+    const endpointProgramId = deployments.find((x) => x.name === name && x.network === network)?.address
+    if (endpointProgramId === undefined) {
+        throw new Error('program not found, name: ' + name + ', network: ' + network)
+    }
+    return new PublicKey(endpointProgramId)
+}
 
 export function privateKeyFromDerivePath(mnemonic: string, path: string): Uint8Array {
     const normalizeMnemonic = mnemonic

@@ -1,12 +1,11 @@
 import '@layerzerolabs/ops-plugin-core'
 
-import {Keypair, PublicKey, SystemProgram, TransactionInstruction} from '@solana/web3.js'
+import {PublicKey, SystemProgram, TransactionInstruction} from '@solana/web3.js'
 import BN from 'bn.js'
 
 
 import {
     SolanaProvider as CoreSolanaProvider,
-    SolanaSigner as CoreSolanaSigner,
 } from '@layerzerolabs/lz-corekit-solana'
 import {
     EndpointId,
@@ -17,10 +16,9 @@ import {
     isEvmChain,
     isSolanaChain,
     networkToChain,
-    networkToStage, endpointIdToStage, Chain, Stage,
+    networkToStage, endpointIdToStage, Chain,
 } from '@layerzerolabs/lz-definitions'
 import {
-    buildVersionedTransaction,
     DVNDeriver,
     EndpointProgram,
     ExecutorPDADeriver,
@@ -33,8 +31,8 @@ import {
 } from '@layerzerolabs/lz-solana-sdk-v2'
 import {bytesToHex, findDeployment} from '@layerzerolabs/lz-utilities'
 import { trim0x } from '@layerzerolabs/lz-v2-utilities'
-import {OFT_TYPE, SEND, SEND_AND_CALL} from '@layerzerolabs/oft-runtime-config'
-import {Deployment, Transaction, TransactionGroup} from '@layerzerolabs/ops-core'
+import {OFT_TYPE, SEND, SEND_AND_CALL, getOftTokenInfo} from '@layerzerolabs/oft-runtime-config'
+import {Deployment} from '@layerzerolabs/ops-core'
 import {
     ConfigureManager,
     ProviderManager,
@@ -42,19 +40,18 @@ import {
     TransactionData,
     configValueToAddressBytes32,
     configValueToAddresses,
-    getConfigFunc, sendTransactionsHelper,
+    getConfigFunc,
 } from '@layerzerolabs/ops-utilities'
 
 import {
     findProgram,
-    getKeyPair,
     getDeployName,
-    getOftTokenInfo,
     _oftConfigPda,
     _mintKp,
     _lockBoxKp,
-    _deployKeyPair, _accountExists
-} from '..'
+    _deployKeyPair,
+    _accountExists
+} from './util'
 import {createInitializeMintInstruction, getMintLen, TOKEN_PROGRAM_ID} from "@solana/spl-token";
 import {BaseOFTWireable, oftWallet} from "./base-oft-wireable"
 
@@ -69,6 +66,9 @@ export class OFTWireable extends BaseOFTWireable {
         protected tokenName: string
     ) {
         super(configManager, providerManager, signerManager, tokenName)
+        if (!tokenName) {
+            throw new Error(`tokenName not set`)
+        }
     }
 
     async buildTransactionDatas(
@@ -215,7 +215,7 @@ async function setPeers(
     const oftProgramId = new PublicKey(findDeployment(deployments, 'oft', { chain })?.address as string)
     const oftConfigPda = _oftConfigPda(tokenName, type, oftProgramId)
     if (configValue === '') {
-        const remoteTokenInfo = getOftTokenInfo(remoteChain, tokenName, getConfig('token'))
+        const remoteTokenInfo = getOftTokenInfo(tokenName, remoteChain, stage)
         if (isEvmChain(remoteChain)) {
             configValue = `${EVM_PACKAGE_NAME}|${getDeployName(remoteTokenInfo)}`
         } else if (isSolanaChain(remoteChain)) {
@@ -326,7 +326,7 @@ async function initOappNonce(
     let configValue = getConfig('peer', [local, 'default'], [remote, 'default']) as string
 
     if (configValue === '') {
-        const remoteTokenInfo = getOftTokenInfo(remoteChain, tokenName, getConfig('token'))
+        const remoteTokenInfo = getOftTokenInfo(tokenName, remoteChain, stage)
         if (isEvmChain(remoteChain)) {
             configValue = `${EVM_PACKAGE_NAME}|${getDeployName(remoteTokenInfo)}`
         } else if (isSolanaChain(remoteChain)) {

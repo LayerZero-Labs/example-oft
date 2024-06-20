@@ -6,9 +6,7 @@
   "scripts": {
     "build": "$npm_execpath clean-prebuild && $npm_execpath tsc",
     "clean": "$npm_execpath clean-prebuild && rimraf .turbo cache",
-    "clean-prebuild": "rimraf dist",
-    "cli": "$npm_execpath ts-node src/cli.ts",
-    "setup-localnet": "$npm_execpath ts-node src/setup-localnet.ts setup-localnet"
+    "clean-prebuild": "rimraf dist"
   },
   "dependencies": {
     "@ethersproject/abi": "^5.7.0",
@@ -18,6 +16,7 @@
   "devDependencies": {
     "@layerzerolabs/lz-solana-sdk-v2": "^2.3.21",
     "@layerzerolabs/oft-runtime-config": "workspace:^",
+    "@layerzerolabs/oft-sdk": "workspace:^",
     "@layerzerolabs/oft-solana-ops": "workspace:^",
     "@layerzerolabs/ops-cli": "^2.3.21",
     "@layerzerolabs/ops-core": "^2.3.21",

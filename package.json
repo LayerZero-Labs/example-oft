@@ -11,7 +11,8 @@
     "build": "$npm_execpath build-prerequisite; $npm_execpath workspaces foreach --all run build",
     "clean": "$npm_execpath workspaces foreach --all run clean",
     "test": "$npm_execpath workspaces foreach --all run test",
-    ":ops": "cd packages/ops && $npm_execpath ops \"$@\""
+    ":ops": "cd packages/ops && $npm_execpath ops \"$@\"",
+    ":cli": "cd packages/ops && $npm_execpath ts-node --transpile-only src/cli.ts \"$@\""
   },
   "devDependencies": {
     "@layerzerolabs/prettier-config-next": "^2.0.1",
