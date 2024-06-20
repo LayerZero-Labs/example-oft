@@ -67,7 +67,7 @@ const v2SolanaBundles: SolanaBundle[] = new Array<SolanaBundle>(
 
 const config: OpsUserConfig = {
     bundles: [...v2SolanaBundles].map((x) => buildBundle(x)),
-    extenders: [pkgroot('@layerzerolabs/ops-plugin-clear')],
+    extenders: [pkgroot('@layerzerolabs/ops-plugin-clear'), pkgroot('@layerzerolabs/ops-plugin-localnet')],
 }
 
 export default config
