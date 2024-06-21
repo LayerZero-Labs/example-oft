@@ -67,8 +67,11 @@ export class OftSdkSolana implements OftSdk {
             (BigInt(amountLD) * BigInt(9)) / BigInt(10),
             opts,
             Array.from(toBytes32),
-            undefined, // TODO - adapter oft
-            payInLzToken
+            payInLzToken,
+            this.tokenEscrow,
+            Uint8Array.from([]),
+            TOKEN_PROGRAM_ID,
+            this.oftProgramId
         )
     }
 
@@ -93,7 +96,7 @@ export class OftSdkSolana implements OftSdk {
             Array.from(toBytes32),
             payInLzToken,
             this.tokenEscrow,
-            Uint8Array.from([]),
+            undefined,
             undefined,
             undefined,
             TOKEN_PROGRAM_ID,
@@ -107,6 +110,7 @@ export class OftSdkSolana implements OftSdk {
         const wallet = this.forceGetKeyPair
         const tokenSource = await getAssociatedTokenAddress(this.tokenMint, wallet.publicKey)
         const [fee, options] = await this.quoteSend(dstEid, amount, false, to, opts)
+
         const ix = await OftTools.sendWithUln(
             this.connection,
             wallet.publicKey,
@@ -118,18 +122,14 @@ export class OftSdkSolana implements OftSdk {
             options,
             Array.from(toBytes32),
             BigInt(fee.nativeFee),
+            BigInt(fee.lzTokenFee),
             this.tokenEscrow,
-            BigInt(fee.lzTokenFee)
+            undefined,
+            undefined,
+            undefined,
+            TOKEN_PROGRAM_ID,
+            this.oftProgramId
         )
-
-        // const { blockhash: blockHash } = await this.connection.getLatestBlockhash('confirmed')
-        // const tx = await txWithAddressLookupTable(
-        //     this.connection,
-        //     wallet.publicKey,
-        //     [modifyComputeUnits, ix],
-        //     blockHash,
-        //     fee.tableAddr
-        // )
 
         const units = await getSimulationComputeUnits(this.connection, [ix], wallet.publicKey, [])
         const customersCU = units === null ? 1000 : units < 1000 ? 1000 : Math.ceil(units * 1.5)

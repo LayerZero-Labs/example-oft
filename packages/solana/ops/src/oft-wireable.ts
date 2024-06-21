@@ -337,6 +337,7 @@ async function initOappNonce(
             return []
         }
     }
+    console.log('configValue', configValue)
     const remoteAddress = configValueToAddressBytes32(remoteNetwork, configValue, deployments)
 
     const ix = await endpoint.initOAppNonce(
