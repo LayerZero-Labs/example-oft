@@ -66,9 +66,6 @@ export class OFTWireable extends BaseOFTWireable {
         protected tokenName: string
     ) {
         super(configManager, providerManager, signerManager, tokenName)
-        if (!tokenName) {
-            throw new Error(`tokenName not set`)
-        }
     }
 
     async buildTransactionDatas(
@@ -79,6 +76,9 @@ export class OFTWireable extends BaseOFTWireable {
         env: Environment,
         provider: CoreSolanaProvider
     ): Promise<TransactionData[]> {
+        if (!this.tokenName) {
+            throw new Error(`tokenName not set`)
+        }
         const getConfig = this.configManager.get.bind(this.configManager, networkToStage(network)) as getConfigFunc
         const endpoint = new EndpointProgram.Endpoint(findProgram('endpoint', deployments, network))
         const uln = new UlnProgram.Uln(findProgram('uln', deployments, network))
