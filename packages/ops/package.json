@@ -8,26 +8,27 @@
     "clean": "$npm_execpath clean-prebuild && rimraf .turbo cache",
     "clean-prebuild": "rimraf dist"
   },
-  "dependencies": {
-    "@ethersproject/abi": "^5.7.0",
-    "@ethersproject/providers": "^5.7.0",
-    "@layerzerolabs/lz-definitions": "^2.3.21"
-  },
   "devDependencies": {
-    "@layerzerolabs/lz-solana-sdk-v2": "^2.3.21",
+    "@layerzerolabs/lz-definitions": "^2.3.21",
+    "@layerzerolabs/lz-utilities": "^2.3.21",
+    "@layerzerolabs/lz-v2-utilities": "^2.3.21",
     "@layerzerolabs/oft-runtime-config": "workspace:^",
     "@layerzerolabs/oft-sdk": "workspace:^",
     "@layerzerolabs/oft-solana-ops": "workspace:^",
     "@layerzerolabs/ops-cli": "^2.3.21",
     "@layerzerolabs/ops-core": "^2.3.21",
     "@layerzerolabs/ops-plugin-clear": "^2.3.21",
+    "@layerzerolabs/ops-plugin-core": "^2.3.21",
     "@layerzerolabs/ops-plugin-localnet": "^2.3.21",
     "@layerzerolabs/ops-utilities": "^2.3.21",
+    "@layerzerolabs/typescript-config-next": "^2.3.21",
+    "@solana/spl-token": "^0.4.6",
     "@solana/web3.js": "^1.92.1",
-    "@types/node": "^20.10.5",
+    "commander": "^11.1.0",
+    "ethers": "^5.7.2",
+    "glob": "^10.3.10",
     "rimraf": "^5.0.5",
     "ts-node": "^10.9.1",
-    "tsup": "^8.0.1",
-    "typescript": "^4.3.5"
+    "typescript": "~5.2.2"
   }
 }

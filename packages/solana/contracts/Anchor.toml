@@ -8,6 +8,7 @@ skip-lint = false
 
 [programs.localnet]
 oft = "HRPXLCqspQocTjfcX4rvAPaY9q6Gwb1rrD3xXWrfJWdW"
+endpoint = "76y77prsiCMvXMjuoZ5VRrhG5qYBrUMYTE5WgHqgjEn6"
 
 [registry]
 url = "https://api.apr.dev"

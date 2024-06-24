@@ -43,7 +43,7 @@ export const config: AppConfig = {
     peer: {
         default: DEFAULT_PEERS,
         [EndpointId.SOLANA_V2_SANDBOX]: {
-            default: '0xdac17f958d2ee523a2206206994597c13d831ec7'
+            default: '0xA14d2aF6B11C949DCFCEa1eC978e68E30f944Af6'
         }
     },
     enforceOptions: {
