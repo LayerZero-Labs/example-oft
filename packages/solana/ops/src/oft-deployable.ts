@@ -3,12 +3,15 @@ import {Chain, Network, networkToChain} from '@layerzerolabs/lz-definitions'
 import {_oftConfigPda} from './util'
 import path from 'node:path'
 import * as fs from 'node:fs'
-import {OFT_TYPE} from "@layerzerolabs/oft-runtime-config";
 import {PublicKey} from "@solana/web3.js";
-
+import {LayerZeroConfigManager} from "@layerzerolabs/ops-utilities";
+import {getAllAppConfigs} from "@layerzerolabs/oft-runtime-config";
 
 export class SolanaOftTokenDeployable implements Deployable {
-    constructor(private deploymentPackageRoot: string, private oftDeploymentName: string, private tokenName: string, private oftType: OFT_TYPE) {
+    private configManager: LayerZeroConfigManager
+
+    constructor(private deploymentPackageRoot: string, private oftDeploymentName: string, private tokenName: string) {
+        this.configManager = new LayerZeroConfigManager(getAllAppConfigs())
     }
 
     compile(option: CompileOption): Promise<void> {
@@ -28,9 +31,10 @@ export class SolanaOftTokenDeployable implements Deployable {
         const deployments: Deployment[] = solanaNetworks.map((network: Network) => {
             // get the oft factory program deployment
             const oftDeployment: Deployment = JSON.parse(fs.readFileSync(path.join(this.deploymentPackageRoot, network, `${this.oftDeploymentName}.json`), 'utf-8'))
+            const oftType = this.configManager.get(network, 'token', this.tokenName, 'types', [Chain.SOLANA, 'default'])
             return {
                 name: this.tokenName,
-                address: _oftConfigPda(this.tokenName, this.oftType, new PublicKey(oftDeployment.address)).toBase58(),
+                address: _oftConfigPda(this.tokenName, oftType, new PublicKey(oftDeployment.address)).toBase58(),
                 network,
                 compatibleVersions: oftDeployment.compatibleVersions,
             }
