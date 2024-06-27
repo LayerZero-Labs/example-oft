@@ -1,0 +1,10 @@
+{
+  "extends": "@layerzerolabs/typescript-config-next/base.json",
+  "exclude": ["dist", "build", "node_modules"],
+  "compilerOptions": {
+    "noEmit": true,
+    "strict": true
+  },
+  "ts-node": { "transpileOnly": true },
+  "include": ["**/*"]
+}

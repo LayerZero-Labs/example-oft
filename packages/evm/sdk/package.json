@@ -1,0 +1,39 @@
+{
+  "name": "@layerzerolabs/oft-evm-sdk",
+  "private": true,
+  "license": "BUSL-1.1",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "artifacts/contracts/**/*",
+    "deployments/**/*",
+    "dist/**/*"
+  ],
+  "scripts": {
+    "build": "$npm_execpath clean-prebuild && $npm_execpath populate && $npm_execpath generate-typechain-types && $npm_execpath tsc",
+    "clean": "rimraf dist src/typechain-types .turbo",
+    "clean-prebuild": "rimraf -g dist src/typechain-types artifacts 'src/errors/*.json'",
+    "generate-typechain-types": "$npm_execpath typechain --target ethers-v5 'artifacts/contracts/**/!(*.dbg).json' --out-dir src/typechain-types",
+    "populate": "ts-node scripts/populate.ts"
+  },
+  "dependencies": {
+    "@ethersproject/abi": "^5.7.0",
+    "@ethersproject/providers": "^5.7.0",
+    "dotenv": "^16.3.1",
+    "ethers": "^5.7.2"
+  },
+  "devDependencies": {
+    "@layerzerolabs/evm-sdks-build": "^2.3.21",
+    "@layerzerolabs/oft-evm-contracts": "workspace:^",
+    "@layerzerolabs/typescript-config-next": "^2.3.21",
+    "@typechain/ethers-v5": "^10.2.1",
+    "@typechain/hardhat": "^6.1.6",
+    "@types/glob": "^8.1.0",
+    "@types/node": "^20.10.5",
+    "hardhat": "^2.19.0",
+    "rimraf": "^5.0.5",
+    "ts-node": "^10.9.1",
+    "typechain": "^8.3.2",
+    "typescript": "~5.2.2"
+  }
+}

@@ -1,0 +1,5 @@
+!artifacts/
+typechain-types
+
+# dynamically generated error interfaces
+src/errors/*.json
