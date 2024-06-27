@@ -1,0 +1,99 @@
+{
+  "name": "@layerzerolabs/oft-evm-contracts",
+  "private": true,
+  "license": "BUSL-1.1",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./ops": {
+      "types": "./dist/ops.d.ts",
+      "import": "./dist/ops.mjs",
+      "require": "./dist/ops.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.cjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "contracts/**/*",
+    "dist/**/*"
+  ],
+  "scripts": {
+    "build": "$npm_execpath clean-prebuild && $npm_execpath build-hardhat && $npm_execpath build-forge && $npm_execpath build-ts",
+    "build-forge": "forge build",
+    "build-hardhat": "$npm_execpath hardhat compile",
+    "build-ts": "$npm_execpath tsup --entry.index ./src/index.ts",
+    "clean": "$npm_execpath clean-prebuild && rimraf .turbo cache out node_modules hh-cache artifacts src/typechain-types",
+    "clean-prebuild": "rimraf dist",
+    "test": "forge test"
+  },
+  "dependencies": {
+    "ethers": "^5.7.2",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@ethersproject/abi": "^5.7.0",
+    "@ethersproject/providers": "^5.7.2",
+    "@layerzerolabs/hardhat-collect-outcomes": "^1.5.64",
+    "@layerzerolabs/hardhat-deploy-mnemonic": "^1.5.64",
+    "@layerzerolabs/lz-definitions": "^2.3.21",
+    "@layerzerolabs/lz-evm-messagelib-v2": "^2.3.21",
+    "@layerzerolabs/lz-evm-oapp-v2": "^2.3.21",
+    "@layerzerolabs/lz-evm-protocol-v2": "^2.3.21",
+    "@layerzerolabs/lz-evm-sdk-v2": "^2.3.21",
+    "@layerzerolabs/lz-utilities": "^2.3.21",
+    "@layerzerolabs/lz-v2-utilities": "^2.3.21",
+    "@layerzerolabs/oft-runtime-config": "workspace:^",
+    "@layerzerolabs/ops-core": "^2.3.21",
+    "@layerzerolabs/ops-plugin-core": "^2.3.21",
+    "@layerzerolabs/ops-utilities": "^2.3.21",
+    "@layerzerolabs/tsup-config": "^0.0.4",
+    "@layerzerolabs/tsup-config-next": "^2.3.21",
+    "@layerzerolabs/typescript-config": "^0.0.3",
+    "@layerzerolabs/typescript-config-next": "^2.3.21",
+    "@nomicfoundation/hardhat-chai-matchers": "^1.0.6",
+    "@nomiclabs/hardhat-ethers": "^2.2.3",
+    "@nomiclabs/hardhat-etherscan": "^3.1.7",
+    "@nomiclabs/hardhat-web3": "^2.0.0",
+    "@openzeppelin/contracts": "^4.8.0",
+    "@openzeppelin/contracts-upgradeable": "^4.8.0",
+    "@solana/web3.js": "^1.92.1",
+    "@typechain/ethers-v5": "^10.2.0",
+    "@typechain/hardhat": "^6.1.5",
+    "@types/lodash": "^4.14.197",
+    "@types/node": "^18.15.11",
+    "chai": "^4.3.7",
+    "eslint": "^8.33.0",
+    "ethers": "^5.7.2",
+    "hardhat": "^2.16.0",
+    "hardhat-contract-sizer": "^2.10.0",
+    "hardhat-deploy": "^0.11.34",
+    "hardhat-deploy-ethers": "^0.3.0-beta.13",
+    "hardhat-gas-reporter": "^1.0.9",
+    "hardhat-spdx-license-identifier": "^2.1.0",
+    "lodash": "^4.17.21",
+    "prettier": "^2.8.4",
+    "prettier-plugin-solidity": "^1.1.2",
+    "rimraf": "^3.0.2",
+    "solidity-bytes-utils": "^0.8.0",
+    "solidity-coverage": "^0.8.4",
+    "ts-node": "^10.9.1",
+    "tsup": "^7.2.0",
+    "typechain": "^8.1.1",
+    "typescript": "^5.0.4"
+  },
+  "peerDependencies": {
+    "@layerzerolabs/lz-evm-oapp-v2": "^2.3.21",
+    "@openzeppelin/contracts": "^4.8.1",
+    "hardhat-deploy": "^0.11.44",
+    "solidity-bytes-utils": "^0.8.0"
+  },
+  "lzVersions": {
+    "default": [
+      "v2"
+    ]
+  }
+}

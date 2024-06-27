@@ -1,0 +1,11 @@
+{
+  "extends": "@layerzerolabs/typescript-config-next/base.json",
+  "include": ["**/*"],
+  "compilerOptions": {
+    "composite": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "rootDirs": ["."],
+    "outDir": "../dist"
+  }
+}
