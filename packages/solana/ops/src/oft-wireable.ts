@@ -55,8 +55,8 @@ import {
 import {createInitializeMintInstruction, getMintLen, TOKEN_PROGRAM_ID} from "@solana/spl-token";
 import {BaseOFTWireable, oftWallet} from "./base-oft-wireable"
 
-const EVM_PACKAGE_NAME = '@layerzerolabs/oft-v2-evm-sdk'
-const SOLANA_PACKAGE_NAME = '@layerzerolabs/oft-v2-solana-sdk'
+const EVM_PACKAGE_NAME = '@layerzerolabs/oft-evm-sdk'
+const SOLANA_PACKAGE_NAME = '@layerzerolabs/oft-solana-sdk'
 
 export class OFTWireable extends BaseOFTWireable {
     constructor(
