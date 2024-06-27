@@ -1,0 +1,9 @@
+{
+  "extends": "@layerzerolabs/typescript-config-next/base.json",
+  "exclude": ["dist", "node_modules"],
+  "compilerOptions": {
+    "outDir": "./dist",
+    "strict": true
+  },
+  "include": ["src/**/*", "lz-solana.config.ts"]
+}
