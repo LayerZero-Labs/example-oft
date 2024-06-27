@@ -46,3 +46,9 @@ export function getOftTokenInfo(tokenName: string, chain: Chain, stage: Stage): 
         token,
     }
 }
+
+export function getDeployName(tokenInfo: TokenInfo): string {
+    return `${tokenInfo.name}${tokenInfo.type}`
+}
+
+

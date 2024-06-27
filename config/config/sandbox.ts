@@ -30,7 +30,7 @@ export const config: AppConfig = {
             types: {
                 [Chain.ETHEREUM]: 'OFT',
                 [Chain.BSC]: 'OFT',
-                [Chain.POLYGON]: 'OFT',
+                [Chain.POLYGON]: 'OFTAdapter',
                 [Chain.SOLANA]: 'OFTAdapter',
                 default: 'OFT',
             },
