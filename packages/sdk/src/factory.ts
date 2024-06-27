@@ -4,6 +4,7 @@ import { OFT_TYPE } from '@layerzerolabs/oft-runtime-config'
 
 import { OftSdk } from './model'
 import { OftSdkSolana } from './solana'
+import { OftSdkEvm } from './evm'
 
 export class OftSDKFactory {
     static async getSdk(
@@ -12,11 +13,10 @@ export class OftSDKFactory {
         tokenInfo: { address: string; type: OFT_TYPE; mintAddress?: string; escrowAddress?: string }
     ): Promise<OftSdk> {
         const chain = networkToChain(network)
-        // TODO add evm
-        // const isEvm = isEvmChain(chain)
-        // if (isEvm) {
-        //     return OftSdkEvm.create(rpc, tokenInfo.address, tokenInfo.type)
-        // }
+        const isEvm = isEvmChain(chain)
+        if (isEvm) {
+            return OftSdkEvm.create(rpc, tokenInfo.address, tokenInfo.type)
+        }
         const isSolana = isSolanaChain(chain)
         if (isSolana) {
             const { mintAddress } = tokenInfo

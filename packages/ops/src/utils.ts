@@ -16,7 +16,7 @@ export class LayerZeroDeploymentFetcher implements DeploymentFetcher {
 
     toSource(packageName: string): string {
         const lookupTable = {
-            '@layerzerolabs/oft-v2-evm-contracts': '@layerzerolabs/oft-v2-evm-sdk',
+            '@layerzerolabs/oft-evm-contracts': '@layerzerolabs/oft-evm-sdk',
         }
         return packageName in lookupTable ? lookupTable[packageName as keyof typeof lookupTable] : packageName
     }

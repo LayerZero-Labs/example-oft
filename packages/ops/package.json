@@ -12,6 +12,8 @@
     "@layerzerolabs/lz-definitions": "^2.3.21",
     "@layerzerolabs/lz-utilities": "^2.3.21",
     "@layerzerolabs/lz-v2-utilities": "^2.3.21",
+    "@layerzerolabs/oft-evm-contracts": "workspace:^",
+    "@layerzerolabs/oft-evm-ops": "workspace:^",
     "@layerzerolabs/oft-runtime-config": "workspace:^",
     "@layerzerolabs/oft-sdk": "workspace:^",
     "@layerzerolabs/oft-solana-ops": "workspace:^",

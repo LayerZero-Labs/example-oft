@@ -16,7 +16,7 @@ import { getOFTKey } from './keys'
 import { getUrl } from './nodes'
 import {_lockBoxKp, _mintKp} from "@layerzerolabs/oft-solana-ops/dist/src";
 
-const EVM_OFT_PACKAGE = '@layerzerolabs/oft-v2-evm-contracts'
+const EVM_OFT_PACKAGE = '@layerzerolabs/oft-evm-sdk'
 const Solana_OFT_PACKAGE = '@layerzerolabs/oft-solana-sdk'
 
 export async function getOFTSdk(
