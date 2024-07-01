@@ -13,11 +13,8 @@ export const config: AppConfig = {
         TokenOne: {
             decimal: 8,
             types: {
-                [Chain.ETHEREUM]: 'OFT',
-                [Chain.ARBSEP]: 'OFTAdapter',
-                [Chain.BSC]: 'OFTAdapter',
-                [Chain.METIS]: 'OFTAdapter',
-                [Chain.POLYGON]: 'OFT',
+                [Chain.POLYGON]: 'OFTAdapter',
+                [Chain.SOLANA]: 'OFT',
                 default: 'OFT',
             },
             address: {
@@ -28,9 +25,7 @@ export const config: AppConfig = {
         TokenTwo: {
             decimal: 8,
             types: {
-                [Chain.ETHEREUM]: 'OFT',
-                [Chain.BSC]: 'OFT',
-                [Chain.POLYGON]: 'OFTAdapter',
+                [Chain.POLYGON]: 'OFT',
                 [Chain.SOLANA]: 'OFTAdapter',
                 default: 'OFT',
             },
