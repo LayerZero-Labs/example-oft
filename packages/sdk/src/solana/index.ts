@@ -1,15 +1,18 @@
-import { web3 } from '@coral-xyz/anchor'
+import {web3} from '@coral-xyz/anchor'
 import {getAccount, getAssociatedTokenAddress, getMint, TOKEN_PROGRAM_ID} from '@solana/spl-token'
-import { PublicKey } from '@solana/web3.js'
-import { getSimulationComputeUnits } from '@solana-developers/helpers'
+import {AddressLookupTableProgram, Connection, PublicKey, Transaction, TransactionInstruction} from '@solana/web3.js'
+import {getSimulationComputeUnits} from '@solana-developers/helpers'
 import * as bip39 from 'bip39'
-import { derivePath } from 'ed25519-hd-key'
+import {derivePath} from 'ed25519-hd-key'
 
-import { OftTools, buildVersionedTransaction } from '@layerzerolabs/lz-solana-sdk-v2'
-import { logger } from '@layerzerolabs/lz-utilities'
-import { Options, addressToBytes32 } from '@layerzerolabs/lz-v2-utilities'
+import {
+    OftTools,
+    buildVersionedTransaction
+} from '@layerzerolabs/lz-solana-sdk-v2'
+import {logger, sleep} from '@layerzerolabs/lz-utilities'
+import {Options, addressToBytes32} from '@layerzerolabs/lz-v2-utilities'
 
-import { MessagingFee, NumberLike, OftSdk } from '../model'
+import {MessagingFee, NumberLike, OftSdk} from '../model'
 
 export class OftSdkSolana implements OftSdk {
     readonly address: string
@@ -131,14 +134,25 @@ export class OftSdkSolana implements OftSdk {
             this.oftProgramId
         )
 
-        const units = await getSimulationComputeUnits(this.connection, [ix], wallet.publicKey, [])
+        const ixKeys = ix.keys.map((key) => {
+            return key.pubkey
+        })
+        const addressLookupTable = await createAddressTable(this.connection, wallet, wallet.publicKey, ixKeys)
+
+        await sleep(2000) // wait the address table active
+
+        const lookupTableAccounts = await this.connection.getAddressLookupTable(addressLookupTable).then((table) => {
+            return table.value
+        })
+
+        const units = await getSimulationComputeUnits(this.connection, [ix], wallet.publicKey, lookupTableAccounts ? [lookupTableAccounts] : [])
         const customersCU = units === null ? 1000 : units < 1000 ? 1000 : Math.ceil(units * 1.5)
         const modifyComputeUnits = web3.ComputeBudgetProgram.setComputeUnitLimit({
             units: customersCU,
         })
-        const tx = await buildVersionedTransaction(this.connection, wallet.publicKey, [modifyComputeUnits, ix])
+        const tx = await buildVersionedTransaction(this.connection, wallet.publicKey, [modifyComputeUnits, ix], 'confirmed', undefined, addressLookupTable)
         tx.sign([wallet])
-        const hash = await this.connection.sendTransaction(tx, { skipPreflight: true })
+        const hash = await this.connection.sendTransaction(tx, {skipPreflight: true})
         await this.connection.confirmTransaction(hash, 'confirmed')
         return hash
     }
@@ -182,3 +196,51 @@ function getKeypair(mnemonic: string, path = "m/44'/501'/0'/0'"): web3.Keypair {
     const seed = bip39.mnemonicToSeedSync(mnemonic, '') // (mnemonic, password)
     return web3.Keypair.fromSeed(derivePath(path, seed.toString('hex')).key)
 }
+
+
+async function createAddressTable(
+    connection: Connection,
+    wallet: web3.Keypair,
+    authority: PublicKey,
+    addresses: PublicKey[]
+): Promise<PublicKey> {
+    const payer = wallet.publicKey;
+    const slot = await connection.getSlot('finalized');
+    const [createInstruction, lookupTableAddress] = AddressLookupTableProgram.createLookupTable({
+        payer,
+        authority,
+        recentSlot: slot,
+    });
+
+    // Create initial transaction to create the lookup table
+    await sendAndConfirmTransaction(connection, wallet, payer, [createInstruction]);
+
+    // Process addresses in chunks of 25
+    for (let i = 0; i < addresses.length; i += 25) {
+        const splitAddresses = addresses.slice(i, i + 25);
+        const extendInstruction = AddressLookupTableProgram.extendLookupTable({
+            payer,
+            authority,
+            lookupTable: lookupTableAddress,
+            addresses: splitAddresses,
+        });
+
+        await sendAndConfirmTransaction(connection, wallet, payer, [extendInstruction]);
+    }
+
+    return lookupTableAddress;
+}
+
+async function sendAndConfirmTransaction(
+    connection: Connection,
+    wallet: web3.Keypair,
+    payer: PublicKey,
+    instructions: TransactionInstruction[]
+): Promise<void> {
+    const transaction = await buildVersionedTransaction(connection, payer, instructions);
+    transaction.sign([wallet]);
+    const hash = await connection.sendTransaction(transaction, {skipPreflight: true});
+    await connection.confirmTransaction(hash, 'confirmed');
+}
+
+

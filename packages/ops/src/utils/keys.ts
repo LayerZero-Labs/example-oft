@@ -2,6 +2,9 @@
 
 import { ChainType, getChainType, networkToChain, networkToStage } from '@layerzerolabs/lz-definitions'
 import {readAccountsConfig} from "@layerzerolabs/ops-utilities";
+import {web3} from "@coral-xyz/anchor";
+import * as bip39 from "bip39";
+import {derivePath} from "ed25519-hd-key";
 
 interface Key {
     mnemonic: string
@@ -43,4 +46,9 @@ export function getOFTKey(network: string): Key {
             throw new Error(`Unsupported chain type ${chain}`)
         }
     }
+}
+
+export function getSolanaKeypair(mnemonic: string, path = "m/44'/501'/0'/0'"): web3.Keypair {
+    const seed = bip39.mnemonicToSeedSync(mnemonic, '') // (mnemonic, password)
+    return web3.Keypair.fromSeed(derivePath(path, seed.toString('hex')).key)
 }
