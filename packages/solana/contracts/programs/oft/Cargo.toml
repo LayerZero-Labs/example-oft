@@ -21,3 +21,4 @@ solana-program = "=1.17.31"
 anchor-spl = "=0.29.0"
 oapp = { git = "https://github.com/LayerZero-Labs/LayerZero-v2.git", branch = "main" }
 utils = { git = "https://github.com/LayerZero-Labs/LayerZero-v2.git", branch = "main" }
+solana-helper = "0.1.0"

@@ -14,9 +14,13 @@ use oapp::{
     endpoint::{MessagingFee, MessagingReceipt},
     LzReceiveParams,
 };
+use solana_helper::program_id_from_env;
 use state::*;
 
-declare_id!("HRPXLCqspQocTjfcX4rvAPaY9q6Gwb1rrD3xXWrfJWdW");
+declare_id!(Pubkey::new_from_array(program_id_from_env!(
+    "OFT_ID",
+    "HRPXLCqspQocTjfcX4rvAPaY9q6Gwb1rrD3xXWrfJWdW"
+)));
 
 pub const OFT_VERSION: u64 = 1;
 pub const OFT_SDK_VERSION: u64 = 1;
