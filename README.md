@@ -14,6 +14,8 @@
   </p>
 </div>
 
+> :warning: We highly recommend you use the [updated oft-solana example](https://github.com/LayerZero-Labs/devtools/tree/main/examples/oft-solana).
+
 The Omnichain Fungible Token (OFT) Standard allows fungible tokens to be transferred across multiple blockchains without asset wrapping or middlechains.
 
 This standard works by burning tokens on the source chain whenever an omnichain transfer is initiated, sending a message via the protocol, and delivering a function call to the destination contract to mint the same number of tokens burned. This creates a unified supply across all networks LayerZero supports that the OFT is deployed on.
